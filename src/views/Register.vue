@@ -11,8 +11,7 @@
           className="text-input"
           type="text"
           name="username"
-          id="username"
-          v-model="username"
+          id="textUsername"
         />
       </p>
       <p class="new-box">
@@ -21,49 +20,19 @@
           className="text-input"
           type="password"
           name="password"
-          id="password"
-          v-model="password"
+          id="textPassword"
         />
       </p>
-      <p class="remember-password"><input type="checkbox" />保存密码</p>
-      <button id="btnLogin" @click="userLogin()">登录</button>
+      <button id="btnLogin">注册</button>
       <!-- </form> -->
     </div>
   </div>
 </template>
 
 <script>
-import bus from '@/bus';
 export default {
-  data() {
-    return {
-        username:'',
-        password:''
-    };
-  },
-  /* created(){
-      bus.$emit("TabbarShow", false);
-  }, */
-  methods: {
-    userLogin() {
-      this.$axios
-        .post("/login",{username:this.username,password:this.password})
-        .then((res) => {
-          console.log(res.data);
-          if(res.data){
-              bus.$emit("LoginNews", res.data[0]);
-              console.log("Login-DataOk", res.data[0])
-              bus.$emit("TabbarShow", true);
-              this.$router.push('/content')
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
-  mounted() {}
-};
+    
+}
 </script>
 
 <style lang="less" scoped>
@@ -120,8 +89,8 @@ export default {
       border-radius: 5px;
       float: right;
       &:hover {
-        background-color: skyblue;
-      }
+      background-color: skyblue;
+    }
     }
   }
 }

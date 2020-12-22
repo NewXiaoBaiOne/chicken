@@ -84,6 +84,28 @@ export default {
   beforeDestroy(){
     bus.$emit("carShow",0)
   }, */
+
+  created() {
+    this.$axios
+      .post("/content/origin/goodshouse")
+      .then((res) => {
+        console.log("商店菜品单：", res.data);
+        // this.goodslist = res.data[0];
+        for (let i of res.data) {
+          //  初始化列表数据
+          this.goodslist.push(i);
+          this.goodslist2.push(i);
+          //  初始化Nai列表数据
+        }
+        this.iniNai()
+          this.updataNai();
+        console.log("Goodslist:", this.goodslist);
+        console.log("Goodslist2:", this.goodslist2);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   data() {
     return {
       datanailist: [
@@ -129,80 +151,7 @@ export default {
         },
       ],
       goodslist2: [],
-      goodslist: [
-        {
-          id: 1,
-          goodsname: "米饭",
-          goodsnumber: 100,
-          goodsell: 666,
-          goodsprice: 2,
-          goodsurl:
-            "https://cube.elemecdn.com/5/c6/ef31560390005987ab4b428943b8bjpeg.jpeg?x-oss-process=image/resize,m_lfit,w_211,h_211/watermark,g_se,x_4,y_4,image_YS8xYS82OGRlYzVjYTE0YjU1ZjJlZmFhYmIxMjM4Y2ZkZXBuZy5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yOA%3D%3D/quality,q_90/format,webp",
-          material: "大米",
-          goodsnai: "主食",
-          buynumber: 0,
-        },
-        {
-          id: 2,
-          goodsname: "白粥",
-          goodsnumber: 10,
-          goodsell: 26,
-          goodsprice: 2,
-          goodsurl:
-            "https://cube.elemecdn.com/d/f5/1c0c4c7337712aaabc74a8b2cff8cjpeg.jpeg?x-oss-process=image/resize,m_lfit,w_211,h_211/watermark,g_se,x_4,y_4,image_YS8xYS82OGRlYzVjYTE0YjU1ZjJlZmFhYmIxMjM4Y2ZkZXBuZy5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yOA%3D%3D/quality,q_90/format,webp",
-          material: "大米",
-          goodsnai: "主食",
-          buynumber: 0,
-        },
-        {
-          id: 3,
-          goodsname: "扣肉",
-          goodsnumber: 50,
-          goodsell: 56,
-          goodsprice: 12,
-          goodsurl:
-            "https://cube.elemecdn.com/3/f7/9dc3bcd49b72a33aa0edc44e01e30jpeg.jpeg?x-oss-process=image/resize,m_lfit,w_211,h_211/watermark,g_se,x_4,y_4,image_YS8xYS82OGRlYzVjYTE0YjU1ZjJlZmFhYmIxMjM4Y2ZkZXBuZy5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yOA%3D%3D/quality,q_90/format,webp",
-          material: "猪肉",
-          goodsnai: "肉食",
-          buynumber: 0,
-        },
-        {
-          id: 4,
-          goodsname: "米饭",
-          goodsnumber: 100,
-          goodsell: 666,
-          goodsprice: 2,
-          goodsurl:
-            "https://cube.elemecdn.com/5/c6/ef31560390005987ab4b428943b8bjpeg.jpeg?x-oss-process=image/resize,m_lfit,w_211,h_211/watermark,g_se,x_4,y_4,image_YS8xYS82OGRlYzVjYTE0YjU1ZjJlZmFhYmIxMjM4Y2ZkZXBuZy5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yOA%3D%3D/quality,q_90/format,webp",
-          material: "大米",
-          goodsnai: "主食",
-          buynumber: 0,
-        },
-        {
-          id: 5,
-          goodsname: "白粥",
-          goodsnumber: 10,
-          goodsell: 26,
-          goodsprice: 2,
-          goodsurl:
-            "https://cube.elemecdn.com/d/f5/1c0c4c7337712aaabc74a8b2cff8cjpeg.jpeg?x-oss-process=image/resize,m_lfit,w_211,h_211/watermark,g_se,x_4,y_4,image_YS8xYS82OGRlYzVjYTE0YjU1ZjJlZmFhYmIxMjM4Y2ZkZXBuZy5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yOA%3D%3D/quality,q_90/format,webp",
-          material: "大米",
-          goodsnai: "主食",
-          buynumber: 0,
-        },
-        {
-          id: 6,
-          goodsname: "扣肉",
-          goodsnumber: 50,
-          goodsell: 56,
-          goodsprice: 12,
-          goodsurl:
-            "https://cube.elemecdn.com/3/f7/9dc3bcd49b72a33aa0edc44e01e30jpeg.jpeg?x-oss-process=image/resize,m_lfit,w_211,h_211/watermark,g_se,x_4,y_4,image_YS8xYS82OGRlYzVjYTE0YjU1ZjJlZmFhYmIxMjM4Y2ZkZXBuZy5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yOA%3D%3D/quality,q_90/format,webp",
-          material: "猪肉",
-          goodsnai: "肉食",
-          buynumber: 0,
-        },
-      ],
+      goodslist: [],
       imglist: [
         {
           id: 1,
@@ -226,10 +175,18 @@ export default {
     for (let i of this.goodslist) {
       this.goodslist2.push(i);
     }
-    console.log(this.goodslist);
-    console.log(this.goodslist2);
+  },
+  activated() {
+    this.iniNai();
+    this.updataNai();
+    bus.$emit("carShow", this.goodspricesum());
+  },
+  deactivated() {
+    bus.$emit("carData", this.goodslist2);
+    bus.$emit("carShow", 0);
   },
   methods: {
+    remuveImg() {},
     choicenai(data) {
       let templist = [];
       for (let i of this.goodslist2) {
@@ -237,14 +194,32 @@ export default {
           templist.push(i);
         }
       }
-      this.goodslist = data.type == '畅销'? this.goodslist2 : templist
+      this.goodslist = data.type == "畅销" ? this.goodslist2 : templist;
+    },
+    //  初始化Nai
+    iniNai(){
+      for (let addata of this.datanailist) {
+            addata.number = 0;
+        }
+    },
+    //  更新Nai
+    updataNai() {
+      for (let newdataList of this.goodslist2) {
+        for (let addata of this.datanailist) {
+          if (
+            addata.type == newdataList.goodsnai &&
+            newdataList.buynumber > 0
+          ) {
+            addata.number += newdataList.buynumber;
+          }
+        }
+      }
     },
     goodspricesum() {
       var sum = 0;
       for (let i of this.goodslist) {
         sum += i.buynumber * i.goodsprice;
       }
-      console.log("sum:", sum);
       return sum;
     },
     goodsadd(data) {

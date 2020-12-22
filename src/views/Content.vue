@@ -11,14 +11,15 @@
 import Vue from "vue";
 import contenthead from "./Content/ContentHead";
 import buyFunc from "./Content/BuyFunc";
-
+import bus from "@/bus"
 export default {
     data(){
         return{
+
         }
     },
-  methods:{
-      
+  beforecreate(){
+      bus.$emit("TabbarShow",true)
   },
   components: {
     contenthead,
@@ -28,6 +29,7 @@ export default {
 </script>
 <style lang="less" scoped>
 #content {
+  background-color: #fff;
   .content-head {
     width: 100%;
     height: 60vw;

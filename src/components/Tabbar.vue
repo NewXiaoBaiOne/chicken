@@ -1,5 +1,5 @@
 <template>
-  <div id="main-nai">
+  <div id="main-nai" v-if="tabbarShow">
     <ul>
       <router-link to="/content" tag="li" active-class="myNaiactive"
         ><i class="iconfont icon-fangjian"></i><a>首页</a></router-link
@@ -9,7 +9,9 @@
         tag="li"
         active-class="myNaiactive"
         :class="isShowcar ? 'isShowCar' : ''"
-        ><i class="iconfont icon-gouwuche"></i><p v-if="isShowcar" class="carnumber">{{isShowcar}}</p><a>购物车</a></router-link
+        ><i class="iconfont icon-gouwuche"></i>
+        <p v-if="isShowcar" class="carnumber">{{ isShowcar }}</p>
+        <a>购物车</a></router-link
       >
       <router-link to="/user" tag="li" active-class="myNaiactive"
         ><i class="iconfont icon-renyuan"></i><a>主页</a></router-link
@@ -26,15 +28,18 @@ import bus from "../bus";
 export default {
   data() {
     return {
-      isShowcar: 0
+      tabbarShow: false,
+      isShowcar: 0,
     };
   },
-  mounted(){
-      bus.$on("carShow",(data)=>{
-          this.isShowcar = data;
-          console.log("data:",data)
-      })
-  }
+  mounted() {
+    bus.$on("TabbarShow", (data) => {
+      this.tabbarShow = data;
+    }),
+      bus.$on("carShow", (data) => {
+        this.isShowcar = data;
+      });
+  },
 };
 </script>
 
@@ -42,12 +47,12 @@ export default {
 .myNaiactive {
   color: rgb(35, 149, 255);
 }
-.carnumber{
-    position: fixed;
-    font-size: 4vw;
-    color: #dd6c2b;
-    bottom: 7vw;
-    left: 55vw;
+.carnumber {
+  position: fixed;
+  font-size: 4vw;
+  color: #dd6c2b;
+  bottom: 7vw;
+  left: 55vw;
 }
 #main-nai {
   width: 100%;

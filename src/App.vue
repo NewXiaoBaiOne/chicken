@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <keep-alive>
+      <router-view />
+    </keep-alive>
 
     <tabbar></tabbar>
   </div>
@@ -83,6 +85,7 @@ a {
 html,
 body {
   height: 100%;
+  background-color: #f5f5f5;
 }
 html {
   font-size: 27.67vw;
