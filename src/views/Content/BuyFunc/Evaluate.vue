@@ -87,7 +87,7 @@ export default {
   },
   created() {
     this.$axios
-      .post("/content/origin/comment")
+      .post("http://localhost:1234/content/origin/comment")
       .then((res) => {
         // this.commentlist = res.data[0];
         for (let i of res.data) {

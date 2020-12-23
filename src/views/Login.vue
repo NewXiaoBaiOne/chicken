@@ -34,6 +34,7 @@
 
 <script>
 import bus from '@/bus';
+import $ from 'jquery';
 export default {
   data() {
     return {
@@ -47,13 +48,13 @@ export default {
   methods: {
     userLogin() {
       this.$axios
-        .post("/login",{username:this.username,password:this.password})
+        .post("http://localhost:1234/login",{username:this.username,password:this.password})
         .then((res) => {
           console.log(res.data);
           if(res.data){
-              bus.$emit("LoginNews", res.data[0]);
-              console.log("Login-DataOk", res.data[0])
               bus.$emit("TabbarShow", true);
+              localStorage.setItem("userID",res.data[0].id)
+              localStorage.setItem("userSEX",res.data[0].sex)
               this.$router.push('/content')
           }
         })
@@ -61,6 +62,26 @@ export default {
           console.log(err);
         });
     },
+    /* userLogin(){
+      $(function(){
+        var list = {username:this.username,password:this.password};
+
+        $.ajax({
+          type: "POST",
+          contentType: "application/json;charset=UTF-8",
+          // 请求地址
+          url: "http://localhost:8888/login",
+          data:JSON.stringify(list),
+          success: function(result){
+            console.log("result:",result);
+          },
+          error: function(e){
+            console.log("status:",e.status);
+            console.log("responseText:",e.responseText);
+          }
+        });
+      });
+    } */
   },
   mounted() {}
 };

@@ -9,6 +9,8 @@ import Business from '../views/Content/BuyFunc/Business'
 import UserInfor from '../views/UserNews/UserInfor'
 import Where from '../views/UserNews/UserWhere'
 import Server from '../views/UserNews/CustomerServer'
+import AddWhere from '../views/UserNews/WhereFunc/AddWhere'
+import ModifyWhere from '../views/UserNews/WhereFunc/ModifyWhere'
 import Rule from '../views/UserNews/UserRule'
 import Coin from '../views/UserNews/Goldcoinmall'
 import Order from '../views/UserNews/OrderNews'
@@ -67,6 +69,10 @@ const routes = [
         component: Where,
       },
       {
+        path: 'modify',
+        component: ModifyWhere,
+      },
+      {
         path: 'server',
         component: Server,
       },
@@ -77,6 +83,10 @@ const routes = [
       {
         path: 'coin',
         component: Coin,
+      },
+      {
+        path: 'addwhere',
+        component: AddWhere,
       },
       {
         path: '',

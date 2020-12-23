@@ -35,13 +35,13 @@
       <div class="buycar-footer">
         <div class="buy-discount">
           <span>已优惠：</span>
-          <p>￥{{ buycarspricesum() }}</p>
+          <p>￥{{ disCount() }}</p>
         </div>
         <div class="buycar-buybox">
           <div class="buycar-buybox-left">
             <div class="buycar-buybox-top">
               <span>合计：</span>
-              <p>￥{{ buycarspricesum() }}</p>
+              <p>￥{{ buycarspricesum2() }}</p>
             </div>
             <div class="buycar-buybox-bottom">
               <span>配送费：￥3</span>
@@ -53,6 +53,11 @@
         </div>
       </div>
     </div>
+    <div class="controlBuy">
+      <div class="to-buy-box">
+
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -60,7 +65,7 @@ import bus from "../bus";
 export default {
   data() {
     return {
-      userId:0,
+      userId: 0,
       carDatalist: [],
       carDatalist2: [],
     };
@@ -89,6 +94,20 @@ export default {
         }); */
   },
   methods: {
+    disCount() {
+      var discount = 0;
+      let buypriceNew = this.buycarspricesum();
+      if (buypriceNew >= 30) {
+        buypriceNew = 8;
+      } else if (buypriceNew >= 25) {
+        buypriceNew = 5;
+      } else if (buypriceNew >= 18) {
+        buypriceNew = 2;
+      } else if (buypriceNew >= 15) {
+        buypriceNew = 1;
+      }
+      return buypriceNew;
+    },
     buysellednum() {
       let sellednum = 0;
       for (let i of this.carDatalist2) {
@@ -101,8 +120,13 @@ export default {
       for (let i of this.carDatalist) {
         carsum += i.buynumber * i.goodsprice;
       }
-      console.log("carsum:", carsum);
       return carsum;
+    },
+    buycarspricesum2() {
+      let datasum = this.buycarspricesum() - this.disCount() + 3;
+      if(datasum == 3){
+        return 0
+      }else return datasum
     },
     buycaradd(data) {
       if (data.buynumber < 100) {
@@ -290,7 +314,7 @@ export default {
           line-height: 6vw;
         }
       }
-      .buycar-buybox-bottom{
+      .buycar-buybox-bottom {
         span {
           font-size: 4vw;
           line-height: 6vw;
@@ -314,5 +338,11 @@ export default {
       }
     }
   }
+}
+.controlBuy{
+  width: 80vw;
+  height: 60%;
+  background-color: black;
+  
 }
 </style>

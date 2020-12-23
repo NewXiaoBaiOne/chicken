@@ -4,7 +4,7 @@
     <section class="hander">
       <div class="hander-box">
         <div class="hander-left">
-          <img v-if="userId" :src="userImg" alt="" />
+          <img v-if="userImg" :src="userImg" alt="" />
           <img v-else src="https://s3.ax1x.com/2020/12/19/rtXirj.jpg" alt="" />
         </div>
         <div class="hander-right">
@@ -101,15 +101,23 @@ export default {
       ],
     };
   },
-  mounted() {
-    bus.$on("LoginNews", (data) => {
-      // this.userData.id = data.id;
-      this.userId = 1;
-      // this.userData.userName = data.username
-      // this.userData.password = data.password
-      console.log("LoginNews:", data);
-      console.log("userId:", this.userId);
-    });
+  created() {
+    this.userId = localStorage.getItem("userID");
+    this.$axios
+        .post("http://localhost:1234/login",{id:this.userId})
+        .then((res) => {
+          console.log(res.data);
+          if(res.data){
+            this.userName = res.data[0].username
+            this.userPhone = res.data[0].phone
+            this.userImg = res.data[0].img
+            this.userGold = res.data[0].gold
+            this.userRed = res.data[0].redbao
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   },
   methods: {
     uservayuePhone(data) {
@@ -177,10 +185,11 @@ export default {
     .information-arrow {
       height: 0.2rem;
       width: 0.1rem;
+      position: absolute;
+      right: 4vw;
+      top: 15vw;
       color: #fff;
       font-size: 0.12rem;
-      margin-top: 0.2rem;
-      float: right;
     }
   }
 }

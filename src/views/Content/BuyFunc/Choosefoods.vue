@@ -77,19 +77,11 @@ import swiper from "./Choosefoods/Swiper";
 import bus from "../../../bus";
 export default {
   components: { swiper },
-  /* beforeMount(){
-    // window.tatolnumber = 0;
-    bus.$emit("carShow",0)
-  },
-  beforeDestroy(){
-    bus.$emit("carShow",0)
-  }, */
 
   created() {
     this.$axios
-      .post("/content/origin/goodshouse")
+      .post("http://localhost:1234/content/origin/goodshouse")
       .then((res) => {
-        console.log("商店菜品单：", res.data);
         // this.goodslist = res.data[0];
         for (let i of res.data) {
           //  初始化列表数据
@@ -97,10 +89,8 @@ export default {
           this.goodslist2.push(i);
           //  初始化Nai列表数据
         }
-        this.iniNai()
-          this.updataNai();
-        console.log("Goodslist:", this.goodslist);
-        console.log("Goodslist2:", this.goodslist2);
+        this.iniNai();
+        this.updataNai();
       })
       .catch((err) => {
         console.log(err);
@@ -197,10 +187,10 @@ export default {
       this.goodslist = data.type == "畅销" ? this.goodslist2 : templist;
     },
     //  初始化Nai
-    iniNai(){
+    iniNai() {
       for (let addata of this.datanailist) {
-            addata.number = 0;
-        }
+        addata.number = 0;
+      }
     },
     //  更新Nai
     updataNai() {
@@ -214,7 +204,7 @@ export default {
           }
         }
       }
-    },
+    }, 
     goodspricesum() {
       var sum = 0;
       for (let i of this.goodslist) {
